@@ -1,0 +1,47 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:system="clr-namespace:System;assembly=mscorlib">
+    <!--  Text in Windwows  -->
+    <system:String x:Key="WOpenFile">Open File</system:String>
+    <system:String x:Key="WClose">Close</system:String>
+    <system:String x:Key="WHelp">Help</system:String>
+    <system:String x:Key="WSetting">Setting</system:String>
+    <system:String x:Key="WPicinfo">Picture Information</system:String>
+    <!--  Text in Menu Items by click mouse right button  -->
+    <system:String x:Key="MOpen">Open</system:String>
+    <system:String x:Key="MSave">Save</system:String>
+    <system:String x:Key="MSaveAs">Save As</system:String>
+    <system:String x:Key="MDelete">Delete</system:String>
+    <system:String x:Key="MCopy">Copy</system:String>
+    <system:String x:Key="MPicinfo">Picture Info</system:String>
+    <system:String x:Key="MSetting">Setting</system:String>
+    <system:String x:Key="MHelp">Help</system:String>
+    <!--  Text in Information of picture  -->
+    <system:String x:Key="SInfoPath">文件路径</system:String>
+    <system:String x:Key="SInfoName">图片名称</system:String>
+    <system:String x:Key="SInfoType">文件类型</system:String>
+    <system:String x:Key="SInfoByte">文件大小</system:String>
+    <system:String x:Key="SInfoSize">图片尺寸</system:String>
+    <system:String x:Key="SInfoTime">拍摄时间</system:String>
+    <system:String x:Key="SInfoModifyTime">修改时间</system:String>
+    <system:String x:Key="SInfoExif">Exif版本</system:String>
+    <system:String x:Key="SInfoMake">设备厂商</system:String>
+    <system:String x:Key="SInfoModel">设备型号</system:String>
+    <system:String x:Key="SInfoLensMake">镜头厂商</system:String>
+    <system:String x:Key="SInfoLensSpec">镜头规格</system:String>
+    <system:String x:Key="SInfoLensModel">镜头型号</system:String>
+    <system:String x:Key="SInfoZoom">数字变焦比例</system:String>
+    <system:String x:Key="SInfoFNumber">光圈</system:String>
+    <system:String x:Key="SInfoExposure">曝光时间</system:String>
+    <system:String x:Key="SInfoExposureBias">曝光补偿</system:String>
+    <system:String x:Key="SInfoISO">ISO感光度</system:String>
+    <system:String x:Key="SInfoFocal">焦距</system:String>
+    <system:String x:Key="SInfoMeter">测光模式</system:String>
+    <system:String x:Key="SInfoFlash">闪光灯</system:String>
+    <system:String x:Key="SInfoBalance">白平衡</system:String>
+    <system:String x:Key="SInfoBrightness">亮度</system:String>
+    <system:String x:Key="SInfoExpProgram">曝光程序</system:String>
+    <system:String x:Key="SInfoHr">----------------------------------</system:String>
+    <system:String x:Key="SInfoMore">==========更多信息===========</system:String>
+</ResourceDictionary>

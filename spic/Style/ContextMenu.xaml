@@ -1,0 +1,97 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <ContextMenu x:Key="ContextMenu">
+
+        <!--  Open  -->
+        <MenuItem Foreground="Black" Header="{StaticResource MOpen}">
+            <MenuItem.Icon>
+                <Path
+                    Width="12"
+                    Height="12"
+                    Data="{StaticResource iOpen}"
+                    Fill="Black"
+                    Stretch="Fill" />
+            </MenuItem.Icon>
+        </MenuItem>
+
+        <!--  save as -->
+        <MenuItem Foreground="Black" Header="{StaticResource MSaveAs}">
+            <MenuItem.Icon>
+                <Path
+                    Width="12"
+                    Height="12"
+                    Data="{StaticResource iSaveAs}"
+                    Fill="Black"
+                    Stretch="Fill" />
+            </MenuItem.Icon>
+        </MenuItem>
+
+        <Separator />
+        
+        <!--  delete  -->
+        <MenuItem Foreground="Black" Header="{StaticResource MDelete}">
+            <MenuItem.Icon>
+                <Path
+                    Width="12"
+                    Height="12"
+                    Data="{StaticResource iDelete}"
+                    Fill="Black"
+                    Stretch="Fill" />
+            </MenuItem.Icon>
+        </MenuItem>
+
+        <!--  copy  -->
+        <MenuItem Foreground="Black" Header="{StaticResource MCopy}">
+            <MenuItem.Icon>
+                <Path
+                    Width="12"
+                    Height="12"
+                    Data="{StaticResource iCopy}"
+                    Fill="Black"
+                    Stretch="Fill" />
+            </MenuItem.Icon>
+        </MenuItem>
+
+        <Separator />
+        <!--  Picinfo  -->
+        <MenuItem Foreground="Black" Header="{StaticResource MPicinfo}">
+            <MenuItem.Icon>
+                <Path
+                    Width="12"
+                    Height="12"
+                    Data="{StaticResource iPicinfo}"
+                    Fill="Black"
+                    Stretch="Fill" />
+            </MenuItem.Icon>
+        </MenuItem>
+
+
+
+        <!--  Setting  -->
+        <MenuItem Foreground="Black" Header="{StaticResource MSetting}">
+            <MenuItem.Icon>
+                <Path
+                    Width="12"
+                    Height="12"
+                    Data="{StaticResource iSetting}"
+                    Fill="Black"
+                    Stretch="Fill" />
+            </MenuItem.Icon>
+        </MenuItem>
+
+
+
+        <Separator />
+        <!--  About  -->
+        <MenuItem Foreground="Black" Header="{StaticResource MHelp}">
+            <MenuItem.Icon>
+                <Path
+                    Width="12"
+                    Height="12"
+                    Data="{StaticResource iHelp}"
+                    Fill="Black"
+                    Stretch="Fill" />
+            </MenuItem.Icon>
+        </MenuItem>
+    </ContextMenu>
+</ResourceDictionary>

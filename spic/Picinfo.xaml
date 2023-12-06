@@ -1,0 +1,23 @@
+﻿<Window x:Class="spic.Picinfo"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:spic"
+        mc:Ignorable="d"
+        Title="Picinfo" Height="614" Width="325" Style="{DynamicResource SettingStyle}" ResizeMode="NoResize" ShowInTaskbar="False" WindowStartupLocation="CenterOwner">
+    <Grid>
+        <Grid Background="WhiteSmoke">
+            <TextBox x:Name="tInfo" Text="ver 0.1.0" TextAlignment="Left" Height="498" Margin="10,35,10,0" VerticalAlignment="Top" HorizontalAlignment="Stretch" VerticalScrollBarVisibility="Auto" ></TextBox>
+            <Button x:Name="bClose" Content="{StaticResource WClose}" Width="180" Height="43" Click="bClose_Click" Margin="34,545,43,10" HorizontalAlignment="Center"></Button>
+        </Grid>
+        <Grid
+            x:Name="TitleBar"
+            Height="30"
+            VerticalAlignment="Top" Background="White">
+            <TextBlock Text="{StaticResource WPicinfo}" VerticalAlignment="Center" Margin="10,0,0,0"></TextBlock>
+        </Grid>
+    </Grid>
+
+
+</Window>

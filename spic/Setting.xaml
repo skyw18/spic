@@ -1,0 +1,44 @@
+﻿<Window x:Class="spic.Setting"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:spic"
+        mc:Ignorable="d"
+        Title="Setting" Height="541" Width="644" Style="{DynamicResource SettingStyle}" ResizeMode="NoResize" ShowInTaskbar="False" WindowStartupLocation="CenterOwner">
+    <Grid>
+
+        <Grid Background="WhiteSmoke">
+            <TextBlock HorizontalAlignment="Left" Margin="38,46,0,0" TextWrapping="Wrap" Text="选择关联文件:" VerticalAlignment="Top" Height="25" Width="232"/>
+            <ListView Name="lvFileExt"  Margin="30,67,30,91" SelectionChanged="lvFileExt_SelectionChanged">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <WrapPanel>
+                            <TextBlock Text="{Binding Checked}" FontWeight="Bold" />
+                            <TextBlock Text="      " />
+                            <TextBlock Text="{Binding Name}" FontWeight="Bold" />
+                            
+                        </WrapPanel>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+            <DockPanel Height="89" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" >
+                <DockPanel VerticalAlignment="Stretch" HorizontalAlignment="Left" Width="260">
+                    <Button x:Name="bOk" Content="{StaticResource WOk}" Height="40" Width="120" Click="bOk_Click" HorizontalAlignment="Right"/>
+                </DockPanel>
+                <DockPanel VerticalAlignment="Stretch" HorizontalAlignment="Right" Width="260">
+                    <Button x:Name="bCancel" Content="{StaticResource WCancel}" Height="40" Width="120" Click="bCancel_Click" HorizontalAlignment="Left"/>
+                </DockPanel>
+            </DockPanel>
+
+        </Grid>
+        <Grid
+            x:Name="TitleBar"
+            Height="30"
+            VerticalAlignment="Top" Background="White">
+            <TextBlock Text="{StaticResource WSetting}" VerticalAlignment="Center" Margin="10,0,0,0"></TextBlock>
+        </Grid>
+    </Grid>
+
+
+</Window>

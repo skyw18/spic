@@ -1,0 +1,166 @@
+﻿<Window x:Class="spic.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:spic"
+        mc:Ignorable="d"        
+        Style="{DynamicResource WindowStyle}"
+        Height="800" Width="1000" MinWidth="320" MinHeight="240"   
+        Background="WhiteSmoke"
+        Focusable="True"
+        AllowDrop="True">
+    <!--  Title="{StaticResource Loading}" -->
+    <!-- StaticResource 资源字典在App.xaml之中设置 -->
+    <Grid x:Name="MainGrid">
+
+        <Grid.Resources>
+            <TransformGroup x:Key="TfGroup">
+                <ScaleTransform ScaleX="1" ScaleY="1"/>
+                <TranslateTransform X="0" Y="0"/>
+            </TransformGroup>
+        </Grid.Resources>
+        <Canvas x:Name="mainContentControl"
+                            MouseLeftButtonDown="ContentControl_MouseLeftButtonDown"
+                            MouseLeftButtonUp="ContentControl_MouseLeftButtonUp"
+                            MouseMove="ContentControl_MouseMove"
+                            Focusable="False"
+                            HorizontalAlignment="Center" VerticalAlignment="Center">
+            <Image       
+                 Margin="0"
+                Name="MainImage"
+                AllowDrop="True"
+                Focusable="False"
+                RenderTransform="{StaticResource TfGroup}" 
+                RenderOptions.BitmapScalingMode="Fant"
+                RenderOptions.EdgeMode="Aliased"
+                Stretch="Fill" >
+            </Image>
+        </Canvas>
+
+        <DockPanel Height="170" HorizontalAlignment="Stretch" VerticalAlignment="Center" Name="pOpen">
+            <Button DockPanel.Dock="Top" x:Name="bOpenBig" Width="200" Height="70" Content="{StaticResource WOpenFile}" Background="#FFE9EBEC" Click="bOpenBig_Click"></Button>
+            <!--Button DockPanel.Dock="Bottom" x:Name="bAboutBig" Width="200" Height="70" Content="关于" Background="#FFE9EBEC" ></Button!-->
+        </DockPanel>
+
+        <Grid
+            x:Name="TitleBar"
+            Height="30"
+            VerticalAlignment="Top" Background="White">
+            <DockPanel>
+                <Grid>
+                    <Image Width="25" Height="25" HorizontalAlignment="Left" VerticalAlignment="Top" Source="Img/logo.ico" Margin="3,3,0,0"></Image>                    
+                    <TextBlock Name="tTitle" Text="" Margin="35,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                    <DockPanel HorizontalAlignment="Right" Width="90" Background="White">
+                        <Button Name="bMinWin" Width="30" Background="{x:Null}" FontSize="20" Click="bMinWin_Click" BorderBrush="White" FontFamily="Cascadia Code" Focusable="False">
+                            <WrapPanel>
+                                <Image Name="iMinWin" Source="Img/min.png"></Image>
+                            </WrapPanel>
+                        </Button>
+                        <Button Name="bMaxWin" Width="30" Background="{x:Null}" FontSize="20" Click="bMaxWin_Click" BorderBrush="White" FontFamily="Cascadia Code" Focusable="False">
+                            <WrapPanel>
+                                <Image Name="iMaxWin" Source="Img/max.png"></Image>
+                            </WrapPanel>
+                        </Button>
+                        <Button Name="bCloseWin" Width="30" Background="{x:Null}" FontSize="20" Click="bCloseWin_Click" BorderBrush="White" FontFamily="Lucida Console" Focusable="False">
+                            <WrapPanel>
+                                <Image Name="iCloseWin" Source="Img/close.png"></Image>
+                            </WrapPanel>
+                        </Button>
+                    </DockPanel>
+                </Grid>
+
+            </DockPanel>
+        </Grid>
+
+        <Grid
+            x:Name="TipBar"
+            Height="36" Width="100"
+            VerticalAlignment="Bottom" Background="#BFF5F5F5" Margin="0,0,0,90" HorizontalAlignment="Center">
+            <TextBlock x:Name="tTip" Text="100%" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center"></TextBlock>
+
+        </Grid>
+
+        <Grid x:Name="LeftBar" HorizontalAlignment="Left" Width="60">
+            <Button x:Name="bPrevImg" Height="60" Background="#7BF5F5F5" Content="&lt;" Foreground="DodgerBlue" FontSize="30" Click="bPrevImg_Click" BorderThickness="0" Focusable="False">
+            </Button>
+        </Grid>
+
+        <Grid x:Name="RightBar" HorizontalAlignment="Right" Width="60">
+            <Button x:Name="bNextImg" Height="60" Background="#7FF5F5F5" Content=">" Foreground="DodgerBlue" FontSize="30" Click="bNextImg_Click"  BorderThickness="0" Focusable="False"></Button>
+        </Grid>
+
+
+        <Grid
+            x:Name="ToolBar"
+            Height="40"
+            VerticalAlignment="Bottom" Background="#7FF5F5F5">
+
+
+            <DockPanel HorizontalAlignment="Left">
+                <Thumb Name="thResizeL" Width="40" Style="{DynamicResource ThumbStyle}" DragDelta="thResizeL_DragDelta" Cursor="SizeNESW">
+                    <Thumb.Template>
+                        <ControlTemplate>
+                            <Image Source="Img/resize_l.png">
+                            </Image>
+                        </ControlTemplate>
+                    </Thumb.Template>
+                </Thumb>
+            </DockPanel>
+            
+            <DockPanel HorizontalAlignment="Center">
+                <Button Name="bOpen" Width="40" Background="White" Click="bOpen_Click" BorderThickness="0" Focusable="False">
+                    <WrapPanel>
+                        <Path Width="21" Height="20" Data="{StaticResource iOpen}" Fill="DodgerBlue" Stretch="Fill" />
+                    </WrapPanel>
+                </Button>
+                <Button Name="bZoomOut" Width="40" Background="White" Click="bZoomOut_Click" BorderThickness="0"  Focusable="False">
+                    <WrapPanel>
+                        <Path Width="21" Height="21" Data="{StaticResource iZoomOut}" Fill="DodgerBlue" Stretch="Fill" />
+                    </WrapPanel>
+                </Button>
+                <Button Name="bZoomIn" Width="40" Background="White" Click="bZoomIn_Click" BorderThickness="0" Focusable="False">
+                    <WrapPanel>
+                        <Path Width="21" Height="21" Data="{StaticResource iZoomIn}" Fill="DodgerBlue" Stretch="Fill" />
+                    </WrapPanel>
+                </Button>
+                <!--Button Name="bRotate" Width="40" Background="White" BorderThickness="0" Focusable="False">
+                    <WrapPanel>
+                        <Path Width="18" Height="21" Data="{StaticResource iRotate}" Fill="DodgerBlue" Stretch="Fill" />
+                    </WrapPanel>
+                </Button!-->
+                <!--Button Name="bSetting" Width="40" Background="White" Click="bSetting_Click">
+                    <WrapPanel>
+                        <Path Width="21" Height="21" Data="{StaticResource iSetting}" Fill="DodgerBlue" Stretch="Fill" />
+                    </WrapPanel>
+                </Button!-->
+                <!--Button Name="bPicinfo" Width="40" Background="White" Click="bPicinfo_Click" BorderThickness="0" Focusable="False">
+                    <WrapPanel>
+                        <Path Width="21" Height="18" Data="{StaticResource iPicinfo}" Fill="DodgerBlue" Stretch="Fill" />
+                    </WrapPanel>
+                </Button!-->
+                <Button Name="bFit" Width="40" Background="White" BorderThickness="0" Focusable="False" Click="bFit_Click">
+                    <WrapPanel>
+                        <Path Width="21" Height="21" Data="{StaticResource iFit}" Fill="DodgerBlue" Stretch="Fill" />
+                    </WrapPanel>
+                </Button>
+                <Button Name="bHelp" Width="40" Background="White" Click="bHelp_Click" BorderThickness="0" Focusable="False">
+                    <WrapPanel>
+                        <Path Width="21" Height="21" Data="{StaticResource iHelp}" Fill="DodgerBlue" Stretch="Fill" />
+                    </WrapPanel>
+                </Button>
+            </DockPanel>
+
+            <DockPanel HorizontalAlignment="Right">
+                <Thumb Name="thResizeR" Width="40" Style="{DynamicResource ThumbStyle}" DragDelta="thResizeR_DragDelta" Cursor="SizeNWSE">
+                    <Thumb.Template>
+                        <ControlTemplate>
+                            <Image Source="Img/resize_r.png">
+                            </Image>
+                        </ControlTemplate>
+                    </Thumb.Template>
+                </Thumb>
+            </DockPanel>
+        </Grid>
+    </Grid>
+</Window>
