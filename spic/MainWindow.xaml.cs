@@ -736,78 +736,94 @@ namespace spic
             {
                 return;
             }
+
+
+
             int loadInfront = Global.PRELOAD_INFRONT;
             int loadBehind = Global.PRELOAD_BEHIND;
 
             int endPoint;
 
             int tmpid;
-            if (Global.Reverse)
+
+            if(Global.ImgList.Count < Global.PRELOAD_INFRONT + Global.PRELOAD_BEHIND + 2)
             {
-                endPoint = Global.CurImgId - 1 - loadInfront;
-                // Add first elements behind
-                for (int i = Global.CurImgId - 1; i > endPoint; i--)
+                for (int i = 0; i < Global.ImgList.Count; i--)
                 {
-                    //负数取余会变成负数，所以加上一个数
-                    tmpid = i % Global.ImgList.Count;
-                    if(CheckNumValid(tmpid))
-                    {
-                        _ = await FileAct.AddAsync(Global.ImgList[tmpid]).ConfigureAwait(false);
-                    }                    
-                }
-
-                // Add second elements
-                for (int i = Global.CurImgId + 1; i < (Global.CurImgId + 1) + loadBehind; i++)
-                {
-                    tmpid = (i + Global.ImgList.Count) % Global.ImgList.Count;
-                    if(CheckNumValid(tmpid))
-                    {
-                        _ = await FileAct.AddAsync(Global.ImgList[tmpid]).ConfigureAwait(false);
-                    }                    
-                }
-
-                //Clean up infront
-                for (int i = (Global.CurImgId + 1) + loadBehind; i < (Global.CurImgId + 1) + loadInfront; i++)
-                {
-                    tmpid = (i + Global.ImgList.Count) % Global.ImgList.Count;
-                    if(CheckNumValid(tmpid))
-                    {
-                        FileAct.Remove(Global.ImgList[tmpid]);
-                    }                    
+                    _ = await FileAct.AddAsync(Global.ImgList[i]).ConfigureAwait(false);
                 }
             }
             else
             {
-                endPoint = (Global.CurImgId - 1) - loadBehind;
-                // Add first elements
-                for (int i = Global.CurImgId + 1; i < (Global.CurImgId + 1) + loadInfront; i++)
+                if (Global.Reverse)
                 {
-                    tmpid = i % Global.ImgList.Count;
-                    if (CheckNumValid(tmpid))
-                    {
-                        _ = await FileAct.AddAsync(Global.ImgList[tmpid]).ConfigureAwait(false);
-                    }                    
-                }
-                // Add second elements behind
-                for (int i = Global.CurImgId - 1; i > endPoint; i--)
-                {
-                    tmpid = (i + Global.ImgList.Count) % Global.ImgList.Count;
-                    if (CheckNumValid(tmpid))
-                    {
-                        _ = await FileAct.AddAsync(Global.ImgList[tmpid]).ConfigureAwait(false);
-                    }                   
-                }
+                    endPoint = Global.CurImgId - 1 - loadInfront;
 
-                //Clean up behind
-                for (int i = Global.CurImgId - loadInfront; i <= endPoint; i++)
-                {
-                    tmpid = (i + Global.ImgList.Count) % Global.ImgList.Count;
-                    if(CheckNumValid(tmpid))
+                    // Add first elements behind
+                    for (int i = Global.CurImgId - 1; i > endPoint; i--)
                     {
-                        FileAct.Remove(Global.ImgList[tmpid]);
-                    }                    
+                        //负数取余会变成负数，所以加上一个数 为什么要取余呢？ 因为要考虑小于0 或者大于count之后循环读取图片
+                        tmpid = i % Global.ImgList.Count;
+                        if (CheckNumValid(tmpid))
+                        {
+                            _ = await FileAct.AddAsync(Global.ImgList[tmpid]).ConfigureAwait(false);
+                        }
+                    }
+
+                    // Add second elements
+                    for (int i = Global.CurImgId + 1; i < (Global.CurImgId + 1) + loadBehind; i++)
+                    {
+                        tmpid = (i + Global.ImgList.Count) % Global.ImgList.Count;
+                        if (CheckNumValid(tmpid))
+                        {
+                            _ = await FileAct.AddAsync(Global.ImgList[tmpid]).ConfigureAwait(false);
+                        }
+                    }
+
+                    //Clean up infront
+                    for (int i = (Global.CurImgId + 1) + loadBehind; i < (Global.CurImgId + 1) + loadInfront; i++)
+                    {
+                        tmpid = (i + Global.ImgList.Count) % Global.ImgList.Count;
+                        if (CheckNumValid(tmpid))
+                        {
+                            FileAct.Remove(Global.ImgList[tmpid]);
+                        }
+                    }
+                }
+                else
+                {
+                    endPoint = (Global.CurImgId - 1) - loadBehind;
+                    // Add first elements
+                    for (int i = Global.CurImgId + 1; i < (Global.CurImgId + 1) + loadInfront; i++)
+                    {
+                        tmpid = i % Global.ImgList.Count;
+                        if (CheckNumValid(tmpid))
+                        {
+                            _ = await FileAct.AddAsync(Global.ImgList[tmpid]).ConfigureAwait(false);
+                        }
+                    }
+                    // Add second elements behind
+                    for (int i = Global.CurImgId - 1; i > endPoint; i--)
+                    {
+                        tmpid = (i + Global.ImgList.Count) % Global.ImgList.Count;
+                        if (CheckNumValid(tmpid))
+                        {
+                            _ = await FileAct.AddAsync(Global.ImgList[tmpid]).ConfigureAwait(false);
+                        }
+                    }
+
+                    //Clean up behind
+                    for (int i = Global.CurImgId - loadInfront; i <= endPoint; i++)
+                    {
+                        tmpid = (i + Global.ImgList.Count) % Global.ImgList.Count;
+                        if (CheckNumValid(tmpid))
+                        {
+                            FileAct.Remove(Global.ImgList[tmpid]);
+                        }
+                    }
                 }
             }
+            
         }
 
         private bool CheckNumValid(int i)
@@ -843,8 +859,6 @@ namespace spic
 
         internal async Task OpenImgAsync(string file)
         {
-
-
             if (RefreshImgList(file) == 0)
             {
                 return;
@@ -875,26 +889,26 @@ namespace spic
             }
 
 
-            if (Global.CurImgId == 0)
-            {
-                Dispatcher.Invoke(new Action(() =>
-                {
-                    Global.ShowLeftArrow = false;
-                    LeftBar.Visibility = Visibility.Hidden;
-                }));
-            }
+            //if (Global.CurImgId == 0)
+            //{
+            //    Dispatcher.Invoke(new Action(() =>
+            //    {
+            //        Global.ShowLeftArrow = false;
+            //        LeftBar.Visibility = Visibility.Hidden;
+            //    }));
+            //}
 
-            if (Global.CurImgId == Global.ImgInfoList.Count - 1)
-            {
-                Dispatcher.Invoke(new Action(() =>
-                {
-                    Global.ShowRightArrow = false;
-                    RightBar.Visibility = Visibility.Hidden;
-                }));
-            }
+            //if (Global.CurImgId == Global.ImgInfoList.Count - 1)
+            //{
+            //    Dispatcher.Invoke(new Action(() =>
+            //    {
+            //        Global.ShowRightArrow = false;
+            //        RightBar.Visibility = Visibility.Hidden;
+            //    }));
+            //}
 
 
-
+            
             if (MilliSecArrowPress >= MILLI_SEC_BEFORE_SWITCH_IMG_FAST)
             {
                 return;
@@ -1115,9 +1129,13 @@ namespace spic
             else
             {
                 if (Global.CurImgId + 1 < Global.ImgList.Count)
-                {
+                {                    
                     OpenImgAsync(Global.ImgList[Global.CurImgId + 1]);
                     //curimgid has changed after OpenImgAsync
+                }
+                else if(Global.CurImgId + 1 == Global.ImgList.Count)
+                {
+                    OpenImgAsync(Global.ImgList[0]);
                 }
             }
         }
@@ -1141,6 +1159,10 @@ namespace spic
                     //此处报错
                     OpenImgAsync(Global.ImgList[Global.CurImgId - 1]);
                     //curimgid has changed after OpenImgAsync
+                }
+                else if(Global.CurImgId - 1 < 0)
+                {
+                    OpenImgAsync(Global.ImgList[Global.ImgList.Count - 1]);
                 }
             }           
             
