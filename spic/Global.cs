@@ -15,7 +15,7 @@ namespace spic
     {
         internal readonly static int MajorVer = 0;
         internal readonly static int MinorVer = 1;
-        internal readonly static int RevisionVer = 5;
+        internal readonly static int RevisionVer = 6;
 
         internal static string DebuInfo = "";
         internal static string ProName = "";

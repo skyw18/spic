@@ -144,6 +144,11 @@
                         <Path Width="21" Height="21" Data="{StaticResource iFit}" Fill="DodgerBlue" Stretch="Fill" />
                     </WrapPanel>
                 </Button>
+                <Button Name="bActual" Width="40" Background="White" BorderThickness="0" Focusable="False" Click="bActual_Click">
+                    <WrapPanel>
+                        <Path Width="21" Height="21" Data="{StaticResource iActual}" Fill="DodgerBlue" Stretch="Fill" />
+                    </WrapPanel>
+                </Button>
                 <Button Name="bHelp" Width="40" Background="White" Click="bHelp_Click" BorderThickness="0" Focusable="False">
                     <WrapPanel>
                         <Path Width="21" Height="21" Data="{StaticResource iHelp}" Fill="DodgerBlue" Stretch="Fill" />

@@ -722,7 +722,7 @@ namespace spic
                 Global.PicSourceW = ImgInfo.BitmapSource.Width;
                 Global.PicSourceH = ImgInfo.BitmapSource.Height;
 
-                FitImage(true);
+                FitImage();
                 if (Global.ShowPicInfo)
                 {
                     wPicinfo.RefreshPicinfo(file);
@@ -748,7 +748,7 @@ namespace spic
 
             if(Global.ImgList.Count < Global.PRELOAD_INFRONT + Global.PRELOAD_BEHIND + 2)
             {
-                for (int i = 0; i < Global.ImgList.Count; i--)
+                for (int i = 0; i < Global.ImgList.Count; i++)
                 {
                     _ = await FileAct.AddAsync(Global.ImgList[i]).ConfigureAwait(false);
                 }
@@ -875,7 +875,7 @@ namespace spic
             MilliSecCountBar = MILLI_SEC_BEFORE_BAR_HIDE;
             pOpen.Visibility = Visibility.Hidden;
             Global.ShowLeftArrow = true;
-            Global.ShowRightArrow = true;            
+            Global.ShowRightArrow = true;
 
             if (Global.ImgList.Count == 1)
             {
@@ -887,27 +887,6 @@ namespace spic
                     RightBar.Visibility = Visibility.Hidden;
                 }));
             }
-
-
-            //if (Global.CurImgId == 0)
-            //{
-            //    Dispatcher.Invoke(new Action(() =>
-            //    {
-            //        Global.ShowLeftArrow = false;
-            //        LeftBar.Visibility = Visibility.Hidden;
-            //    }));
-            //}
-
-            //if (Global.CurImgId == Global.ImgInfoList.Count - 1)
-            //{
-            //    Dispatcher.Invoke(new Action(() =>
-            //    {
-            //        Global.ShowRightArrow = false;
-            //        RightBar.Visibility = Visibility.Hidden;
-            //    }));
-            //}
-
-
             
             if (MilliSecArrowPress >= MILLI_SEC_BEFORE_SWITCH_IMG_FAST)
             {
@@ -985,28 +964,35 @@ namespace spic
             return 1;
         }
 
+        private void FullImage()
+        {
+
+        }
+
         //使Image能够在软件内完整显示
-        internal void FitImage(bool FitPic)
+        private void FitImage(bool ActualPic = false) //ActualPic表示是否按1:1显示图片
         {
             double ZoomValue = 0;
-            if(FitPic)
-            {
-                //if(Global.PicSourceW <= SystemParameters.WorkArea.Size.Width && Global.PicSourceH <= SystemParameters.WorkArea.Size.Height)
-                if (Global.PicSourceW <= SystemParameters.WorkArea.Size.Width && Global.PicSourceH <= SystemParameters.WorkArea.Size.Height)
-                {
-                    
-                }
-            }
 
-            if (Global.PicSourceW <= this.Width && Global.PicSourceH <= this.Height)
-            {
-                ZoomValue = 100;  // 100% and change windows size
-            }
-            else 
-            {
-            }
+            var group = MainImage.FindResource("TfGroup") as TransformGroup;
+            var transform = group.Children[0] as ScaleTransform;
+            transform.ScaleX = 1;
+            transform.ScaleY = 1;
+            var transformImg = group.Children[1] as TranslateTransform;
 
-            if (ZoomValue == 0)
+
+            if (ActualPic) //按1:1显示图片
+            {
+                MainImage.Width = Global.PicSourceW;
+                MainImage.Height = Global.PicSourceH;
+                ZoomValue = 100;
+
+                transformImg.X = (this.Width - MainImage.Width) / 2;
+                transformImg.Y = (this.Height - MainImage.Height) / 2;
+
+                ZoomLevel = (int)ZoomValue;
+            }
+            else //图片填满整个窗口
             {
                 if (this.Width / Global.PicSourceW > this.Height / Global.PicSourceH)
                 {
@@ -1016,30 +1002,18 @@ namespace spic
                 {
                     ZoomValue = this.Width / Global.PicSourceW * 100;
                 }
+
+                MainImage.Width = Global.CurPicW = Global.PicSourceW * ZoomValue / 100;
+                MainImage.Height = Global.CurPicH = Global.PicSourceH * ZoomValue / 100;
+
+                transformImg.X = (this.Width - MainImage.Width) / 2;
+                transformImg.Y = (this.Height - MainImage.Height) / 2;
+
+
+                ZoomLevel = (int)ZoomValue;
+                //MainImage.Width = 1000f;
+                //MainImage.Height = 1000f;
             }
-
-
-            if(ZoomValue > 100)
-            {
-                ZoomValue = 100;
-            }
-
-            MainImage.Width = Global.CurPicW = Global.PicSourceW * ZoomValue / 100;
-            MainImage.Height = Global.CurPicH = Global.PicSourceH * ZoomValue / 100;
-            var group = MainImage.FindResource("TfGroup") as TransformGroup;
-            var transform = group.Children[0] as ScaleTransform;
-            transform.ScaleX = 1;
-            transform.ScaleY = 1;
-            var transformImg = group.Children[1] as TranslateTransform;
-            transformImg.X = (this.Width - MainImage.Width) / 2;
-            transformImg.Y = (this.Height - MainImage.Height) / 2;
-            
-
-            ZoomLevel = (int)ZoomValue;
-            //MainImage.Width = 1000f;
-            //MainImage.Height = 1000f;
-
-            return;
         }
 
         private void bCloseWin_Click(object sender, RoutedEventArgs e)
@@ -1210,6 +1184,11 @@ namespace spic
 
 
         private void bFit_Click(object sender, RoutedEventArgs e)
+        {
+            FitImage();
+        }
+
+        private void bActual_Click(object sender, RoutedEventArgs e)
         {
             FitImage(true);
         }
