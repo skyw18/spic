@@ -120,7 +120,11 @@ namespace spic
                         //如果用户勾选了关联文件，则需要操作注册表进行文件关联
                         if(!RegAct.CheckAppReg()) //如果application下面没有注册则先添加Application
                         {
-                            RegAct.AddApplicationToReg();
+                            if (RegAct.AddApplicationToReg() == -1)
+                            {
+                                MessageBox.Show("请用管理员权限运行");
+                            }
+
                         }                        
                         RegAct.AssociationWith(ext.Name);                        
                     }

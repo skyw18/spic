@@ -81,7 +81,7 @@ namespace spic
         /// appname示例： spic.exe
         /// location为程序所在位置，例如：F:\Study\Csharp\spic\spic\bin\Release\net48\spic.exe
         /// </summary>
-        public static void AddApplicationToReg()
+        public static int AddApplicationToReg()
         {
             string fullPath = Process.GetCurrentProcess().MainModule.FileName;
             string exeFile = System.IO.Path.GetFileName(fullPath);
@@ -97,9 +97,12 @@ namespace spic
             {
                 AppKey = Registry.ClassesRoot.CreateSubKey("Applications\\" + exeFile + "\\shell\\open\\command");
                 AppKey.SetValue("", val);
+                return 0;
             }
             catch
             {
+                //Console.WriteLine("+================");
+                return -1;
                 ///.......提示用户需要以管理员权限运行
             }
         }
